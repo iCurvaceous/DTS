@@ -9,6 +9,12 @@
   "author": "Alexandra de Castro",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.2.1",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.10",
+    "nodemon": "^1.18.9"
   }
 }
