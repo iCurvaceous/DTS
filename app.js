@@ -7,6 +7,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 
 var url = 'mongodb://localhost:27017/dts';
+var routes = require('./routes/index');
 var mongoose = require('mongoose');
 //assert is a built in packaging nodejs normally used for testing
 //allows us to compare values etc. 
@@ -39,67 +40,47 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Route to index
-router.get('/', function(req, res, next){
-    res.render('index');
-});
-
-//Route to login
-router.get('/login', function(req,res){
-    res.render('login');
-});
-
-//Route to login
-router.get('/register', function(req,res){
-    res.render('register');
-});
-
-router.post('/get-data', function(req, res, next){
-    var resultArray = [];
-    mongoose.connect(url, function(err, db){
-        assert.equal(null, err);
-        var cursor = db.collection('user-data').find();
-        cursor.forEach(function(doc, err){
-         assert.equal(null, err);   
-        });
-    });
-});
-
-router.post('/insert', function(req, res, next){
-    var item = {
-        title: req.body.title,
-        content: req.body.content,
-        author: req.body.author
-    };
-
-    mongoose.connect(url, function(err, db){
-        assert.equal(null, err);
-        db.collection('user-data').insertOne(item, function(err, result){
-            assert.equal(null, error);
-            console.log('Item inserted');
-        });
-    });
-
-    res.redirect('/');
-});
-
-router.post('/update', function(req, res, next){
-
-});
-
-router.post('/delete', function(req, res, next){
-
-});
-
 //makes router public
 module.exports = router;
 module.exports = mongoose;
 
 //routes for paths
 app.use(express.static(__dirname+'/views'));
-app.use('/', router);
+app.use('/', routes);
 
 //starts server
 app.listen(port, function(){
     console.log("Server is running on Port " + port);
 });
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+
+  // development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+        message: err.message,
+        error: err
+      });
+    });
+  }
+  
+  // production error handler
+  // no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {}
+    });
+  });
+  
+  
+  module.exports = app;
