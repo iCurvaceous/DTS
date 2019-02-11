@@ -12,19 +12,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/get-data', function(req, res, next) {
-  var resultArray = [];
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    var cursor = db.collection('user-data').find();
-    cursor.forEach(function(doc, err) {
-      assert.equal(null, err);
-      resultArray.push(doc);
-    }, function() {
-      db.close();
-      res.render('index', {items: resultArray});
-    });
+    UserData.find()
+        .then(function(doc) {
+          res.render('testcase', {items: doc});
+        });
   });
-});
 
 router.post('/insert', function(req, res, next) {
   var item = {
@@ -33,47 +25,31 @@ router.post('/insert', function(req, res, next) {
     author: req.body.author
   };
 
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').insertOne(item, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item inserted');
-      db.close();
-    });
-  });
+  var data = new UserData(item);
+  data.save();
 
-  res.redirect('/');
+  res.redirect('/testcase');
 });
 
 router.post('/update', function(req, res, next) {
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author
-  };
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').updateOne({"_id": objectId(id)}, {$set: item}, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item updated');
-      db.close();
-    });
+    var id = req.body.id;
+  
+    UserData.findById(id, function(err, doc) {
+      if (err) {
+        console.error('error, no entry found');
+      }
+      doc.title = req.body.title;
+      doc.content = req.body.content;
+      doc.author = req.body.author;
+      doc.save();
+    })
+    res.redirect('/testcase');
   });
-});
 
 router.post('/delete', function(req, res, next) {
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db) {
-    assert.equal(null, err);
-    db.collection('user-data').deleteOne({"_id": objectId(id)}, function(err, result) {
-      assert.equal(null, err);
-      console.log('Item deleted');
-      db.close();
-    });
-  });
+    var id = req.body.id;
+    UserData.findByIdAndRemove(id).exec();
+    res.redirect('/testcase');
 });
 
 //Route to index

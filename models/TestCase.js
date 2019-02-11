@@ -30,5 +30,4 @@ var TestCaseSchema = new Schema({
         default:Date.now
     }
 });
-
-mongoose.model('TestCase', TestCaseSchema);
+TestCaseData = mongoose.model('TestCase', TestCaseSchema);
