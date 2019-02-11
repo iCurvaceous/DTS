@@ -55,11 +55,32 @@ router.get('/register', function(req,res){
 });
 
 router.post('/get-data', function(req, res, next){
-
+    var resultArray = [];
+    mongoose.connect(url, function(err, db){
+        assert.equal(null, err);
+        var cursor = db.collection('user-data').find();
+        cursor.forEach(function(doc, err){
+         assert.equal(null, err);   
+        });
+    });
 });
 
 router.post('/insert', function(req, res, next){
+    var item = {
+        title: req.body.title,
+        content: req.body.content,
+        author: req.body.author
+    };
 
+    mongoose.connect(url, function(err, db){
+        assert.equal(null, err);
+        db.collection('user-data').insertOne(item, function(err, result){
+            assert.equal(null, error);
+            console.log('Item inserted');
+        });
+    });
+
+    res.redirect('/');
 });
 
 router.post('/update', function(req, res, next){
