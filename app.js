@@ -128,10 +128,9 @@ router.get('/logout', function(req, res){
 //sending data to project page
 app.get('/project', function(req, res){
     Project.find({})
-    .then(function(project_entry,bug_entry){
+    .then(function(project_entry){
         res.render('project', {
-            project_entry:project_entry,
-            bug_entry:bug_entry
+            project_entry:project_entry
         });
     });
 });
@@ -185,9 +184,9 @@ app.post('/addbug', function(req,res){
         status:req.body.status,
         priority:req.body.priority,
         phase:req.body.phase,
-        project:req.body.project,
-        author:req.body.author,
-        company:req.body.company
+        project:req.body.project
+        //author:req.body.author,
+        //company:req.body.company
         //assigned_user:req.body.assigned_user,
         //date_assigned:req.body.date_assigned,
     }
@@ -197,15 +196,76 @@ app.post('/addbug', function(req,res){
     });
 });
 
+
+
 //login from on _navbar
-router.post('/adduser', function(req,res,next){
+router.post('/login', function(req,res,next){
     passport.authenticate('local', {
-        successRedirect:'/home',
+        successRedirect:'/project',
         failureRedirect:'/'
     })(req,res,next);
-    console.log(res);
 });
 
+//Route to Edit Bug Entries
+router.get('/editbug/:id', function(req,res){
+    Bug.findOne({
+        _id:req.params.id
+    }).then(function(bug_entry){
+        res.render('bugedit', {
+            bug_entry:bug_entry,
+            user:req.user
+        });
+    });
+});
+
+//Route to put edited entry
+router.post('/puteditbug/:id', function(req,res){
+    Bug.findOne({
+        _id:req.params.id
+    }).then(function(bug_entry){
+        test_num = req.body.test_num,
+        category = req.body.category,
+        test_conditions = req.body.test_conditions,
+        game_section = req.body.game_section,
+        test_env = req.body.test_env,
+        function_tested = req.body.function_tested,
+        tester_action = req.body.tester_action,
+        expected_result = req.body.expected_result,
+        actual_result = req.body.actual_result,
+        test_values = req.body.test_values,
+        system_version = req.body.system_version,
+        build_version = req.body.build_version,
+        script_file = req.body.script_file,
+        desc = req.body.desc,
+        score = req.body.score,
+        status = req.body.status,
+        priority = req.body.priority,
+        phase = req.body.phase,
+        project = req.body.project,
+        bug_entry.save().then(function(idea){
+            res.redirect('/bug')
+        })
+    });
+});
+
+//Delete Game Entry
+app.post('/:id', function(req, res){
+    Bug.remove({_id:req.params.id})
+    .then(function(){
+        //req.flash("game removed");
+        res.redirect('/');
+    });
+});
+
+router.get('/userlist/:id', function(req,res){
+    User.find({
+        user:req.params.id //params because you do not want to be logged in
+    }).then(function(entries){
+        res.render('home', {
+            entries:entries
+        })
+    });
+});
 //------------------------------------------------------
 
 

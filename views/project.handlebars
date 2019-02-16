@@ -2,34 +2,49 @@
     <div class="col-md-8 mx-auto">
         <div class="card-body">
             <div class="jumbotron text-centered">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddProjectModalCenter">
+                    Add Project
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddBugModalCenter">
+                    Add Bug/TestCase
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card-body">
+            <div class="jumbotron text-centered">
                 <h1>Projects List</h1>
                 <p>These are the current projects.</p>
                 <ul class="list-group list-group-flush">
-                {{#each project_entry}}
-                <div class="accordion" id='project_entry' name='project_entry'>
-                    <div class="accordion" id="project_entry">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h4><b>{{name}}</b></h4>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                data-parent="#project_entry">
-                                <div class="card-body">
-                                    <p><b>Production Phase:</b> {{phase}}</p>
-                                    <p><b>Status:</b> {{status}}</p>
-                                    <p><b>Company:</b> {{company}}</p>
-                                    <p><b>Description of Project:</b> {{desc}}</p>
-                                    <br>
-                                    <p><b>Creation Date:</b> {{date}}</p>
+                    {{#each project_entry}}
+                    <div class="accordion" id='project_entry' name='project_entry'>
+                        <div class="accordion" id="project_entry">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4><b>{{name}}</b></h4>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                    data-parent="#project_entry">
+                                    <div class="card-body">
+                                        <p><b>Production Phase:</b> {{phase}}</p>
+                                        <p><b>Status:</b> {{status}}</p>
+                                        <p><b>Company:</b> {{company}}</p>
+                                        <p><b>Description of Project:</b> {{desc}}</p>
+                                        <br>
+                                        <p><b>Creation Date:</b> {{date}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--<li class="list-group-item">
+                            <!--<li class="list-group-item">
                             <a href='/gameentries/edit/{{id}}' class="btn btn-warning mb-3">Edit</a>
                     <form method="POST" action="/{{id}}?_method=Delete"> -->
                             <!--<input type ="submit" value="Edit" class="btn btn-warning">-->
@@ -37,23 +52,14 @@
                         <input type="submit" value="Delete" class="btn btn-danger">
                     </form> 
                         </li>-->
-                    </div>
-                    {{else}}
-                    <li class="list-group list-group-flush">
-                        <p>There are no project entries.</p>
-                    </li>
-                    {{/each}}
-                    </ul>
-                </div>
+                        </div>
+                        {{else}}
+                        <li class="list-group list-group-flush">
+                            <p>There are no project entries.</p>
+                        </li>
+                        {{/each}}
+                </ul>
             </div>
         </div>
     </div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddProjectModalCenter">
-        Add Project
-    </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddBugModalCenter">
-        Add Bug/TestCase
-    </button>
-    <br>
-    <br>
+</div>

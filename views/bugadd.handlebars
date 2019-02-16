@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card-body">
+            <form class="form-group" action="/addbug" method="POST">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="project">Project Name</label>
+                    </div>
+
+                    <select class="custom-select" id="project" name="project" required>
+                        <option selected>Choose...</option>
+                        {{#each project_entry}}
+                        <option id="project" name="project" value="{{name}}">{{name}}</option>
+                        {{else}}
+
+                        {{/each}}
+                    </select>
+                </div>
+                <label>Test Case#</label>
+                <input type="number" class="form-control" placeholder="Type a number" id="test_num" name="test_num"
+                    maxlength="10">
+                <br>
+                <label>Test Case Category</label>
+                <input list="category" class="form-control"
+                    placeholder="Type for new category or select from dropdown list" id="category" name="category"
+                    required>
+                <datalist id="category">
+                    {{#each report_entry}}
+                    <option value="{{name}}">{{name}}</option>
+                    {{else}}
+
+                    {{/each}}
+                    <option value="Unknown">Unknown (To Let Leader/Manager Assign)</option>
+                </datalist>
+                <br>
+                <label>Conditions to be Tested</label>
+                <input type="text" class="form-control" id="test_conditions" name="test_conditions"
+                    placeholder="Example: Selecting one level one weapon" required>
+                <br>
+                <label>Game Section</label>
+                <input type="text" class="form-control" id="game_section" name="game_section"
+                    placeholder="Example: Level one" required>
+                <br>
+                <label>Testing Environment Preparation</label>
+                <textarea class="form-control" id="test_env" name="test_env"
+                    placeholder="Write here all the conditions prior to your testing." required></textarea>
+                <br>
+                <label>Procedure:</label>
+                <br>
+                <label>Function Tested</label>
+                <input type="text" class="form-control" id="function_tested" name="function_tested"
+                    placeholder="Example: Requesting a weapon" required>
+                <br>
+                <label>Tester's Action</label>
+                <input type="text" class="form-control" id="tester_action" name="tester_action"
+                    placeholder="Example: Selecting one map and one weapon" required>
+                <br>
+                <label>Expected System Results</label>
+                <textarea name="expected_result" id="expected_result" class="form-control"
+                    placeholder="Example: Weapon mounted on player" required></textarea>
+                <br>
+                <label>Actual Result</label>
+                <textarea id="actual_result" name="actual_result" class="form-control" placeholder="Example: Valid weapon mounted
+Gravity gun, 100 charge, 100 strength" required></textarea>
+                <br>
+                <label>Test Values</label>
+                <textarea id="test_values" name="test_values" class="form-control" placeholder="Page Name: Introduction Screen     Value:Don’t press anything, wait for 3 seconds.
+Page Name: Credits Screen     Value:Don’t press anything, wait for 7 seconds." required></textarea>
+                <br>
+                <label>System Version</label>
+                <input type="text" id="system_version" name="system_version" class="form-control"
+                    placeholder="Example: Windows 10.0.10240.0" required>
+                <br>
+                <label>Build Version</label>
+                <input type="text" id="build_version" name="build_version" class="form-control"
+                    placeholder="Example: 0.14c" required>
+                <br>
+                <label>Script File</label>
+                <input type="text" id="script_file" name="script_file" class="form-control"
+                    placeholder="Example: ned.xml" required>
+                <br>
+
+                <label>Description of Bug</label>
+                <br>
+                <textarea id="desc" name="desc" class="form-control" placeholder="Enter additional information here."
+                    required></textarea>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="phase">Phase Found</label>
+                    </div>
+                    <select class="custom-select" id="phase" name="phase">
+                        <option selected>Choose...</option>
+                        <option value="Initiation">Initiation</option>
+                        <option value="Pre-Production">Pre-Production</option>
+                        <option value="Testing">Testing</option>
+                        <option value="Production">Production</option>
+                        <option value="Beta">Beta</option>
+                        <option value="Release">Release</option>
+
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="score">Score</label>
+                    </div>
+                    <select class="custom-select" id="score" name="score" required>
+                        <option selected>Choose...</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="priority">Priority</label>
+                    </div>
+                    <select class="custom-select" id="priority" name="priority" required>
+                        <option selected>Choose...</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="status">Status</label>
+                    </div>
+                    <select class="custom-select" id="status" name="status" required>
+                        <option selected>Choose...</option>
+                        <option value="New">New</option>
+                        <option value="Open">Open</option>
+                        <option value="Assign">Assign</option>
+                        <option value="Test">Test</option>
+                        <option value="Re-opened">Re-opened</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Defered">Defered</option>
+                        <option value="Verified">Verified</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Bug</button>
+            </form>
+        </div>
+    </div>
+</div>
