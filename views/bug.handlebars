@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card-body">
+            <div class= "jumbotron text-centered">
+                <h1>Bug Server</h1>
+                <p>These are all the bugs in the company.</p>
+                <ul class="list-group list-group-flush"></ul>
+                {{#each bug_entry}}
+                <div class='project_entry'>
+                <li class="list-group-item">
+                    <p class="font-weight-bold">Project Name: {{project}}</p>
+                    <p>Test Case# {{test_num}}</p>
+                    <p>Test Case Category: {{category}}</p>
+                    <p>Conditions to be Tested: {{test_conditons}}</p>
+                    <p>Game Section: {{game_section}}</p>
+                    <p>Testing Environment Preparation: {{test_env}}</p>
+                    <p>Execution Procedure:</p>
+                    <p>Function Tested: {{function_tested}}</p>
+                    <p>Tester's Action: {{tester_action}}</p>
+                    <p>Expected System Results: {{expected_result}}</p>
+                    <p>Actual Result: {{actual_result}}</p>
+                    <p>Test Values:</p><p>{{test_values}}</p>
+                    <p>System Version: {{system_version}}</p>
+                    <p>Build Version: {{build_version}}</p>
+                    <p>Script File: {{script_file}}</p>
+                    <p>Description: {{desc}}</p>
+                    <p>Score: {{score}}</p>
+                    <p>Status:{{status}}</p>
+                    <p>Assigned to: {{assigned_user}}</p>
+                    <p>Assigned Date: {{date_assigned}}</p>
+                    <p>Priority: {{priority}}</p>
+                    <p>Phase Found: {{phase}}</p>
+                    <p>Company: {{company}}</p>
+                    <p>Observed By: {{author}}</p>
+                    <p>Creation Date: {{date}}</p>
+                    <!--<a href='/gameentries/edit/{{id}}' class="btn btn-warning mb-3">Edit</a>
+                    <form method="POST" action="/{{id}}?_method=Delete"> -->
+                        <!--<input type ="submit" value="Edit" class="btn btn-warning">-->
+                       <!-- <input type="hidden" name="_method" value="DELETE">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form> -->
+                </li>
+                </div>
+                <br>
+                {{else}}
+                <li class="list-group-item">
+                <p>There are no bug entries.</p>
+                </li>
+                {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Button Trigger Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddBugModalCenter">
+  Add Bug/TestCase
+</button>

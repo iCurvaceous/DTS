@@ -11,7 +11,7 @@ var BugSchema = new Schema({
         type:String,
         required:true
     },
-    test_conditons:{
+    test_conditions:{
         type:String,
         required:true
     },
@@ -60,7 +60,7 @@ var BugSchema = new Schema({
         required:true
     },
     score:{
-        type:Boolean,
+        type:String,
         required:true
     },
     status:{
@@ -89,7 +89,7 @@ var BugSchema = new Schema({
     },
     company:{
         type:String,
-        required:true
+        //required:true
     },
     project:{
         type:String,
@@ -97,7 +97,7 @@ var BugSchema = new Schema({
     },
     author:{
         type:String,
-        required:true   
+        //required:true   
     },
     date:{
         type:Date,

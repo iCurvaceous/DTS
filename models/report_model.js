@@ -13,11 +13,11 @@ var ReportSchema = new Schema({
     },
     company:{
         type:String,
-        required:true
+        //required:true
     },
     user:{
         type:String,
-        required:true
+        //required:true
     },
     status:{
         type:String,

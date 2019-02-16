@@ -127,11 +127,22 @@ router.get('/logout', function(req, res){
 
 //sending data to project page
 app.get('/project', function(req, res){
-    console.log("request made from fetch.");
     Project.find({})
-    .then(function(project_entry){
+    .then(function(project_entry,bug_entry){
         res.render('project', {
-            project_entry:project_entry
+            project_entry:project_entry,
+            bug_entry:bug_entry
+        });
+    });
+});
+
+//sending data to bug page
+app.get('/bug', function(req, res){
+    console.log("request made from fetch.");
+    Bug.find({})
+    .then(function(bug_entry){
+        res.render('bug', {
+            bug_entry:bug_entry
         });
     });
 });
@@ -147,7 +158,7 @@ app.post('/addproject', function(req,res){
         status:req.body.status,
     }
     new Project(newProject)
-    .save().then(function(project_entry){
+    .save().then(function(){
         res.redirect('/project')
     });
 });
@@ -156,16 +167,32 @@ app.post('/addproject', function(req,res){
 app.post('/addbug', function(req,res){
     console.log(req.body);
     var newBug = {
-        //test_num:,
+        test_num:req.body.test_num,
         category:req.body.category,
+        test_conditions:req.body.test_conditions,
+        game_section:req.body.game_section,
+        test_env:req.body.test_env,
+        function_tested:req.body.function_tested,
+        tester_action:req.body.tester_action,
+        expected_result:req.body.expected_result,
+        actual_result:req.body.actual_result,
+        test_values:req.body.test_values,
+        system_version:req.body.system_version,
+        build_version:req.body.build_version,
+        script_file:req.body.script_file,
+        desc:req.body.desc,
+        score:req.body.score,
+        status:req.body.status,
+        priority:req.body.priority,
         phase:req.body.phase,
-        project:req.body.name,
+        project:req.body.project,
         author:req.body.author,
         company:req.body.company
-
+        //assigned_user:req.body.assigned_user,
+        //date_assigned:req.body.date_assigned,
     }
     new Bug(newBug)
-    .save().then(function(bug_entry){
+    .save().then(function(){
         res.redirect('/bug')
     });
 });
